@@ -2,9 +2,9 @@
 
 
 #' Default output directory 
-configDefaultDestSubDir= "./out/"
+p_configDefaultDestSubDir= "./out/"
 #' Default output filename 
-configDefaultOutputFilename= "campaign_sumup.xlsx"
+p_configDefaultOutputFilename= "campaign_sumup.xlsx"
 
 #' checkEmptyValue
 #' 
@@ -42,7 +42,7 @@ checkEmptyValue <- function(parameter){
 #' - factor1: first factor or treatment  of the experiment in the fieldbook file ("NULL")
 #' - factor2: second factor or treatment of the experiement in the fieldbook file ("NULL")
 #' 
-#' @param list of named parameter
+#' @param paramList list of named parameter
 #' @return list corrected with default values if the parameter is missing or empty
 #' @export
 #' @examples
@@ -112,21 +112,22 @@ checkNamedParameter <- function(paramList){
     }
   }
   if(!hasName(paramList,"destSubDir")){
-    warning(paste0("Missing optional parameter: destSubDir -> set default: ",configDefaultDestSubDir))
-    paramList[["destSubDir"]] <- configDefaultDestSubDir
+    warning(paste0("Missing optional parameter: destSubDir -> set default: ",p_configDefaultDestSubDir))
+    paramList[["destSubDir"]] <- p_configDefaultDestSubDir
   }
   if(checkEmptyValue(paramList[["destSubDir"]])){
-    warning(paste0("Empty optional parameter: destSubDir -> set default: ",configDefaultDestSubDir))
-    paramList[["destSubDir"]] <- configDefaultDestSubDir
+    warning(paste0("Empty optional parameter: destSubDir -> set default: ",p_configDefaultDestSubDir))
+    paramList[["destSubDir"]] <- p_configDefaultDestSubDir
   }
   if(!hasName(paramList,"outputFilename")){
-    warning(paste0("Missing optional parameter: outputFilename -> set default: ",configDefaultOutputFilename))
-    paramList[["outputFilename"]] <- configDefaultOutputFilename
+    warning(paste0("Missing optional parameter: outputFilename -> set default: ",p_configDefaultOutputFilename))
+    paramList[["outputFilename"]] <- p_configDefaultOutputFilename
   }
   if(checkEmptyValue(paramList[["outputFilename"]])){
-    warning(paste0("Empty optional parameter: outputFilename -> set default: ",configDefaultOutputFilename))
-    paramList[["outputFilename"]] <- configDefaultOutputFilename
+    warning(paste0("Empty optional parameter: outputFilename -> set default: ",p_configDefaultOutputFilename))
+    paramList[["outputFilename"]] <- p_configDefaultOutputFilename
   }
   return(paramList)
 }
+
 
