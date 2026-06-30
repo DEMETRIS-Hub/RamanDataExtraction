@@ -42,7 +42,7 @@ util_check_missing_param_error <- function(param) {
 }
 
 
-
+### nominal case
 test_that("Check nominal case ", {
   # 1. Setup: Create input and expected output
   input_list <- util_default_base_list()
@@ -55,7 +55,7 @@ test_that("Check nominal case ", {
   expect_equal(actual_output, expected_output)
 })
 
-
+### compulsory parameter 
 test_that("Check missing datasetDir ", {
   # 1. Setup: Create input and expected output
   base_list <- util_default_base_list()
@@ -195,3 +195,157 @@ test_that("Check empty spectrumNb ", {
                "Empty compulsory parameter: spectrumNb",
                fixed=TRUE)
 })
+### optional parameter with default
+test_that("Check missing destSubDir ", {
+  base_list <- util_default_base_list()
+  input_list <- base_list[setdiff(names(base_list), "destSubDir")]
+  
+  expect_output <- util_default_base_list()
+  expect_output[["destSubDir"]] = "./out/" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Missing optional parameter: destSubDir -> set default: ./out/",
+                 fixed=TRUE)
+  expect_setequal(actual_output, expect_output)
+  })
+
+test_that("Check empty destSubDir ", {
+  base_list <- util_default_base_list()
+  input_list <- base_list
+  input_list[["destSubDir"]] = "" 
+  
+  expect_output <- util_default_base_list()
+  expect_output[["destSubDir"]] = "./out/" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Empty optional parameter: destSubDir -> set default: ./out/",
+                 fixed=TRUE)
+  expect_setequal(actual_output, expect_output)
+})
+
+
+test_that("Check missing outputFilename ", {
+  base_list <- util_default_base_list()
+  input_list <- base_list[setdiff(names(base_list), "outputFilename")]
+  
+  expect_output <- util_default_base_list()
+  expect_output[["outputFilename"]] = "campaign_sumup.xlsx" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Missing optional parameter: outputFilename -> set default: campaign_sumup.xlsx",
+                 fixed=TRUE)
+  expect_setequal(actual_output, expect_output)
+})
+
+test_that("Check empty outputFilename ", {
+  base_list <- util_default_base_list()
+  input_list <- base_list
+  input_list[["outputFilename"]] = "" 
+  
+  expect_output <- util_default_base_list()
+  expect_output[["outputFilename"]] = "campaign_sumup.xlsx" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Empty optional parameter: outputFilename -> set default: campaign_sumup.xlsx",
+                 fixed=TRUE)
+  expect_setequal(actual_output, expect_output)
+})
+
+
+
+### optional parameter 
+test_that("Check missing location ", {
+  base_list <- util_default_base_list()
+  input_list <- base_list[setdiff(names(base_list), "location")]
+  
+  expect_no_warning(checkNamedParameter(input_list))
+})
+
+test_that("Check empty location ", {
+  input_list <- util_default_base_list()
+  input_list[["location"]] = "" 
+  
+  expect_output <- util_default_base_list()
+  expect_output[["location"]] = "" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+               "Empty optional parameter: location",
+               fixed=TRUE)
+  expect_equal(actual_output, expect_output)
+  
+})
+
+
+test_that("Check missing block ", {
+  base_list <- util_default_base_list()
+  input_list <- base_list[setdiff(names(base_list), "block")]
+  
+  expect_no_warning(checkNamedParameter(input_list))
+})
+
+test_that("Check empty block ", {
+  input_list <- util_default_base_list()
+  input_list[["block"]] = "" 
+  
+  expect_output <- util_default_base_list()
+  expect_output[["block"]] = "" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Empty optional parameter: block",
+                 fixed=TRUE)
+  expect_equal(actual_output, expect_output)
+  
+})
+
+test_that("Check missing factor1 ", {
+  base_list <- util_default_base_list()
+  
+  input_list <- base_list[setdiff(names(base_list), "factor1")]
+  
+  expect_no_warning(checkNamedParameter(input_list))
+})
+
+test_that("Check empty factor1 ", {
+  input_list <- util_default_base_list()
+  input_list[["factor1"]] = "" 
+  
+  expect_output <- util_default_base_list()
+  expect_output[["factor1"]] = "" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Empty optional parameter: factor1",
+                 fixed=TRUE)
+  expect_equal(actual_output, expect_output)
+  
+})
+
+test_that("Check missing factor2 ", {
+  base_list <- util_default_base_list()
+  
+  input_list <- base_list[setdiff(names(base_list), "factor2")]
+  
+  expect_no_warning(checkNamedParameter(input_list))
+})
+
+test_that("Check empty factor2 ", {
+  input_list <- util_default_base_list()
+  input_list[["factor2"]] = "" 
+  
+  expect_output <- util_default_base_list()
+  expect_output[["factor2"]] = "" 
+  
+  
+  expect_warning(actual_output <- checkNamedParameter(input_list),
+                 "Empty optional parameter: factor2",
+                 fixed=TRUE)
+  expect_equal(actual_output, expect_output)
+  
+})
+

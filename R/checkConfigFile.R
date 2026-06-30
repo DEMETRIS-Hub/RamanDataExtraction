@@ -1,5 +1,11 @@
 ## function that load the config file checking all parameters 
 
+
+#' Default output directory 
+configDefaultDestSubDir= "./out/"
+#' Default output filename 
+configDefaultOutputFilename= "campaign_sumup.xlsx"
+
 #' checkEmptyValue
 #' 
 #' This utility function check whether the existing provided parameter is null, n.a. or empty 
@@ -26,9 +32,11 @@ checkEmptyValue <- function(parameter){
 #' - ending_time: ending time of the sample in the fieldbook file 
 #' - spectrum_nb: number of spectrum collected for this id colname in the fieldbook file
 #' 
-#' Optional parameter (default): 
+#' Optional parameter with default: if missing or empty a default value is set 
 #' - destSubDir: directory to write the input  (./out/)
 #' - outputFilename: filename output (campaign_sumup.xlsx)
+#' 
+#' Optional parameter: if missing no warning and if empty a warning is set 
 #' - location: location colname in the fieldbook file ("NULL")
 #' - block: block or replica  colname in the fieldbook file ("NULL")
 #' - factor1: first factor or treatment  of the experiment in the fieldbook file ("NULL")
@@ -83,7 +91,42 @@ checkNamedParameter <- function(paramList){
   if(checkEmptyValue(paramList[["spectrumNb"]])){
     stop("Empty compulsory parameter: spectrumNb")
   }
-  
+  if(hasName(paramList,"location")){
+    if(checkEmptyValue(paramList[["location"]])){
+      warning("Empty optional parameter: location")
+    }
+  }
+  if(hasName(paramList,"block")){
+    if(checkEmptyValue(paramList[["block"]])){
+      warning("Empty optional parameter: block")
+    }
+  }
+  if(hasName(paramList,"factor1")){
+    if(checkEmptyValue(paramList[["factor1"]])){
+      warning("Empty optional parameter: factor1")
+    }
+  }
+  if(hasName(paramList,"factor2")){
+    if(checkEmptyValue(paramList[["factor2"]])){
+      warning("Empty optional parameter: factor2")
+    }
+  }
+  if(!hasName(paramList,"destSubDir")){
+    warning(paste0("Missing optional parameter: destSubDir -> set default: ",configDefaultDestSubDir))
+    paramList[["destSubDir"]] <- configDefaultDestSubDir
+  }
+  if(checkEmptyValue(paramList[["destSubDir"]])){
+    warning(paste0("Empty optional parameter: destSubDir -> set default: ",configDefaultDestSubDir))
+    paramList[["destSubDir"]] <- configDefaultDestSubDir
+  }
+  if(!hasName(paramList,"outputFilename")){
+    warning(paste0("Missing optional parameter: outputFilename -> set default: ",configDefaultOutputFilename))
+    paramList[["outputFilename"]] <- configDefaultOutputFilename
+  }
+  if(checkEmptyValue(paramList[["outputFilename"]])){
+    warning(paste0("Empty optional parameter: outputFilename -> set default: ",configDefaultOutputFilename))
+    paramList[["outputFilename"]] <- configDefaultOutputFilename
+  }
   return(paramList)
 }
 
