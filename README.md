@@ -1,11 +1,11 @@
-# Package form RAMAN raw file processing
+# Package for RAMAN raw file processing
 
 This simple package aims to merge seperate raw RAMAN data file in one single 
 spreadsheet based on the metadata provided by a fieldbook spreadsheet and the 
 filenames of the raw RAMAN data files. 
 
 All the information required to execute the main script "ramanFieldDataExtraction"
-are written in a configuration file written in YAML (default is ./configFile.yml)
+are written in a configuration file written in YAML (default is ./config.yml)
 
 ## How to install 
 The code is available in the repository https://github.com/DEMETRIS-Hub/RamanDataExtraction
@@ -20,13 +20,53 @@ if (!require(hms)) install.packages('hms',repos = "http://cran.us.r-project.org"
 if (!require(stringr)) install.packages('stringr',repos = "http://cran.us.r-project.org")
 if (!require(dplyr)) install.packages('dplyr',repos = "http://cran.us.r-project.org")
 if (!require(yaml)) install.packages('yaml',repos = "http://cran.us.r-project.org")
+if (!require(openxlsx)) install.packages('openxlsx',repos = "http://cran.us.r-project.org")
+
 ```
 
 As an alternative you may download the tar.gz archive adn install it locally using  
 devtools::install_local()
 
+## Configugation file example 
+The configuration File determines the behaviour of the script. You may write a different one 
+for each campaign or use the default config.yml. 
+
+Below an example of config file with detailed comments 
+
+```
+# File setup for the script
+## (Compulsory) directory with the raw data file
+datasetDir: .\..\Sardegna Marzo 2026
+## (Compulsory) spreadsheet with the field metadata
+fieldBookFilename: Summary Raman data Sardegna 2026.xlsx
+## (Default: ./out/) directory for the output
+destSubDir: ./out/
+## (Default: campaign_sumup.xlsx) filename for the output
+outputFilename: campaign_sumup.xlsx
+# Fieldbook column name mapping 
+## (Compulsory) unique identifier 
+id: n° pianta
+## (Compulsory) acquisition date  
+date: Data
+## (Compulsory) acquisition starting time 
+startTime: orario inizio
+## (Compulsory) acquisition ending time 
+endTime: orario fine
+## (Compulsory) spectrum acquired during the time
+spectrumNb: n spettri
+## (Optional) location metadata
+location: Nome sito
+## (Optional) block metadata
+block: 
+## (Optional) factor1 metadata
+factor1:
+## (Optional) factor2 metadata
+factor2: 
+
+```
+
 ## How to run 
-Configure properly the config file (cf. ./config.yml)
+Configure properly the config file (cf. ./config.yml in the repository)
 Open an RScipt, load the package and executre the main program as below
 
 
