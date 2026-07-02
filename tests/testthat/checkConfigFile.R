@@ -208,14 +208,25 @@ test_that("Check missing destSubDir ", {
   base_list <- util_default_base_list()
   input_list <- base_list[setdiff(names(base_list), "destSubDir")]
   
-  expect_output <- util_default_base_list()
-  expect_output[["destSubDir"]] = "./out/" 
-  
+  expect_output <- list(datasetDir="dflt_datasetDir",
+                        fieldBookFilename="dftl_fieldBookFilename",
+                        id="dflt_id",
+                        date="dflt_date",
+                        startTime="dflt_startTime",
+                        endTime="dflt_endTime",
+                        spectrumNb="dflt_spectrumNb", 
+                        outputFilename="dflt_outputFilename",
+                        location="dflt_location",
+                        block="dflt_block",
+                        factor1="dflt_factor1",
+                        factor2="dflt_factor2",
+                        destSubDir="./out/")
+
   
   expect_warning(actual_output <- checkNamedParameter(input_list),
                  "Missing optional parameter: destSubDir -> set default: ./out/",
                  fixed=TRUE)
-  expect_setequal(actual_output, expect_output)
+  expect_equal(actual_output, expect_output)
   })
 
 test_that("Check empty destSubDir ", {
@@ -230,7 +241,7 @@ test_that("Check empty destSubDir ", {
   expect_warning(actual_output <- checkNamedParameter(input_list),
                  "Empty optional parameter: destSubDir -> set default: ./out/",
                  fixed=TRUE)
-  expect_setequal(actual_output, expect_output)
+  expect_equal(actual_output, expect_output)
 })
 
 
@@ -238,14 +249,24 @@ test_that("Check missing outputFilename ", {
   base_list <- util_default_base_list()
   input_list <- base_list[setdiff(names(base_list), "outputFilename")]
   
-  expect_output <- util_default_base_list()
-  expect_output[["outputFilename"]] = "campaign_sumup.xlsx" 
-  
+  expect_output <- list(datasetDir="dflt_datasetDir",
+                        fieldBookFilename="dftl_fieldBookFilename",
+                        id="dflt_id",
+                        date="dflt_date",
+                        startTime="dflt_startTime",
+                        endTime="dflt_endTime",
+                        spectrumNb="dflt_spectrumNb", 
+                        destSubDir="dflt_destSubDir",
+                        location="dflt_location",
+                        block="dflt_block",
+                        factor1="dflt_factor1",
+                        factor2="dflt_factor2",
+                        outputFilename="campaign_sumup.xlsx")
   
   expect_warning(actual_output <- checkNamedParameter(input_list),
                  "Missing optional parameter: outputFilename -> set default: campaign_sumup.xlsx",
                  fixed=TRUE)
-  expect_setequal(actual_output, expect_output)
+  expect_equal(actual_output, expect_output)
 })
 
 test_that("Check empty outputFilename ", {
@@ -260,7 +281,7 @@ test_that("Check empty outputFilename ", {
   expect_warning(actual_output <- checkNamedParameter(input_list),
                  "Empty optional parameter: outputFilename -> set default: campaign_sumup.xlsx",
                  fixed=TRUE)
-  expect_setequal(actual_output, expect_output)
+  expect_equal(actual_output, expect_output)
 })
 
 

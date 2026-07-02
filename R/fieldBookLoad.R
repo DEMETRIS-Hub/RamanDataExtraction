@@ -1,5 +1,10 @@
 ## function to load the fieldbookfile 
 
+# Author: André Fabbri 
+# E-mail: andre.fabbri@cnr.it
+# Version: 1.0
+# License: Apache
+
 
 if (!require(openxlsx)) install.packages(openxlsx)
 library(openxlsx) ## for write.xlsx function
