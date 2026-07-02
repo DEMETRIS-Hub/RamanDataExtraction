@@ -9,11 +9,17 @@ are written in a configuration file written in YAML (default is ./configFile.yml
 
 ## How to install 
 The code is available in the repository https://github.com/DEMETRIS-Hub/RamanDataExtraction
-to install it run the following code in an R terminal 
+to install it run the following code in an R terminal to install this package and 
+depending package
 
 ```
 if (!require(remotes)) install.packages("remotes")
 remotes::install_github("DEMETRIS-Hub/RamanDataExtraction")
+
+if (!require(hms)) install.packages('hms',repos = "http://cran.us.r-project.org")
+if (!require(stringr)) install.packages('stringr',repos = "http://cran.us.r-project.org")
+if (!require(dplyr)) install.packages('dplyr',repos = "http://cran.us.r-project.org")
+if (!require(yaml)) install.packages('yaml',repos = "http://cran.us.r-project.org")
 ```
 
 As an alternative you may download the tar.gz archive adn install it locally using  
