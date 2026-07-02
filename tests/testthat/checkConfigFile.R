@@ -1,3 +1,11 @@
+## Testthat check configFile
+#
+# Author: André Fabbri 
+# E-mail: andre.fabbri@cnr.it
+# Version: 1.0
+# License: Apache
+
+
 source("./.../../R/checkConfigFile.R")
 
 library(testthat)

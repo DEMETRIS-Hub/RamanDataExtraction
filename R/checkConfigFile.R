@@ -1,4 +1,9 @@
 ## function that load the config file checking all parameters 
+#
+# Author: André Fabbri 
+# E-mail: andre.fabbri@cnr.it
+# Version: 1.0
+# License: Apache
 
 
 #' Default output directory 
