@@ -4,16 +4,16 @@
 # Version: 1.0
 # License: Apache
 
-source("./.../../R/ramanFileLoad.R")
+#source("./.../../R/ramanFileLoad.R")
 
-if (!require(testthat)) install.packages(testthat)
+if (!require(testthat)) install.packages('testthat',repos = "http://cran.us.r-project.org")
 library(testthat) ## test
-if (!require(hms)) install.packages(hms)
+if (!require(hms)) install.packages('hms',repos = "http://cran.us.r-project.org")
 library(hms) ## for time manipulation
-if (!require(lubridate)) install.packages(lubridate)
-library(lubridate) # date manipulation
-if (!require(dplyr)) install.packages("dplyr")
+if (!require(dplyr)) install.packages('dplyr',repos = "http://cran.us.r-project.org")
 library(dplyr) ## for tibble manipulation
+if (!require(stringr)) install.packages('stringr',repos = "http://cran.us.r-project.org")
+library(stringr)## for string operation str_extract str_split
 
 #' util_default_dataFileTibble
 #' 
@@ -34,28 +34,28 @@ util_default_dataFileTibble <- function(){
                    "filename2.txt",
                    "filename3.txt",
                    "filename4.txt")
-      )
+    )
   )
 }
 
 test_that("Nominal case extractMetadataFromFileName ", {
   # 1. Setup: Create input and expected output
   input_parameter <- "2024-03-23 15-33-08-500mw-5000ms-1x.txt"
-
+  
   expected_output <- data.frame(
     filename="2024-03-23 15-33-08-500mw-5000ms-1x.txt",                        
     date=as.Date("2024-03-23","%Y-%m-%d"),
-                            time=as_hms("15:33:08"),
-                            pwr_mw=500,
-                            delay_ms=5000,
-                            rep_x=1
-                             )
+    time=as_hms("15:33:08"),
+    pwr_mw=500,
+    delay_ms=5000,
+    rep_x=1
+  )
   # 2. Action: Run the function
   actual_output <- extractMetadataFromFileName(input_parameter)
-    
+  
   # 3. Expectation: Check if the actual output matches the expected output
   expect_equal(actual_output, expected_output)
-  })
+})
 
 
 test_that("intersectFileWithDate - Case 1 fieldbookentry", {
@@ -70,7 +70,7 @@ test_that("intersectFileWithDate - Case 1 fieldbookentry", {
   )
   
   input_dataFile = util_default_dataFileTibble()
-
+  
   expected_output = tibble(
     date=as.Date("2026-03-23","%Y-%m-%d"),
     id=1,
@@ -119,40 +119,40 @@ test_that("intersectFileWithDate - Case 1 fieldbookentry with 2 record on the sa
   # 3. Expectation: Check if the actual output matches the expected output
   expect_equal(actual_output, expected_output)
 })
-  
+
 test_that("intersectFileWithDate - Case 2 fieldbookentry same id", {
-    # 1. Setup: Create input and expected output
-    input_fieldBook = tibble(
-      date=c(as.Date("2026-03-23","%Y-%m-%d"),
-             as.Date("2026-03-26","%Y-%m-%d")),
-      startTime= c(as_hms("10:35:00"),
-                   as_hms("10:24:00")),
-      endTime= c(as_hms("10:36:00"),
-                 as_hms("10:30:00")),
-      id = c(1,1),
-      spectrumNb=c(1,1),
-      fieldBookCol = c(0,0)
-      )
-      
-      input_dataFile = util_default_dataFileTibble()
-      
-      expected_output = tibble(
-        date=c(as.Date("2026-03-23","%Y-%m-%d"),
-               as.Date("2026-03-26","%Y-%m-%d")),
-        id=c(1,1),
-        spectrum_expected=c(1,1),
-        spectrum_matching=c(1,1),
-        fieldBookCol = c(0,0), 
-        time = c(as_hms("10:35:24"),
-                 as_hms("10:24:24")),
-        filename = c("filename1.txt","filename4.txt")
-      )
-      
-      # 2. Action: Run the function
-      actual_output <- intersectFileWithDate(input_fieldBook,input_dataFile)
-      
-      # 3. Expectation: Check if the actual output matches the expected output
-      expect_equal(actual_output, expected_output)
+  # 1. Setup: Create input and expected output
+  input_fieldBook = tibble(
+    date=c(as.Date("2026-03-23","%Y-%m-%d"),
+           as.Date("2026-03-26","%Y-%m-%d")),
+    startTime= c(as_hms("10:35:00"),
+                 as_hms("10:24:00")),
+    endTime= c(as_hms("10:36:00"),
+               as_hms("10:30:00")),
+    id = c(1,1),
+    spectrumNb=c(1,1),
+    fieldBookCol = c(0,0)
+  )
+  
+  input_dataFile = util_default_dataFileTibble()
+  
+  expected_output = tibble(
+    date=c(as.Date("2026-03-23","%Y-%m-%d"),
+           as.Date("2026-03-26","%Y-%m-%d")),
+    id=c(1,1),
+    spectrum_expected=c(1,1),
+    spectrum_matching=c(1,1),
+    fieldBookCol = c(0,0), 
+    time = c(as_hms("10:35:24"),
+             as_hms("10:24:24")),
+    filename = c("filename1.txt","filename4.txt")
+  )
+  
+  # 2. Action: Run the function
+  actual_output <- intersectFileWithDate(input_fieldBook,input_dataFile)
+  
+  # 3. Expectation: Check if the actual output matches the expected output
+  expect_equal(actual_output, expected_output)
 })  
 
 
@@ -187,8 +187,8 @@ test_that("intersectFileWithDate - Case 2 fieldbookentry with one mismatch on da
   
   # 2. Action: Run the function
   expect_warning(
-  actual_output <- intersectFileWithDate(input_fieldBook,input_dataFile),
-  "Some file present in the field book were not correclty matched with the Raman filename - check spectrum_expected and spectrum_matching columns"
+    actual_output <- intersectFileWithDate(input_fieldBook,input_dataFile),
+    "Some file present in the field book were not correclty matched with the Raman filename - check spectrum_expected and spectrum_matching columns"
   )
   
   # 3. Expectation: Check if the actual output matches the expected output
@@ -343,11 +343,11 @@ test_that("intersectFileWithDate - Case 3 fieldbookentry with no match on the 4 
     spectrum_matching=c(0,0,0),
     fieldBookCol = c(0,1,2), 
     time = as_hms(c(NA,
-             NA,
-             NA)),
+                    NA,
+                    NA)),
     filename = as.character(c(NA,
-                 NA,
-                 NA))
+                              NA,
+                              NA))
   )
   
   # 2. Action: Run the function

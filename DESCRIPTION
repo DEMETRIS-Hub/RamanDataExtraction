@@ -1,0 +1,13 @@
+Package: pipelineraman
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("André", "Fabbri", , "andre.fabbri@cnr.it", role = c("aut", "cre"))
+Description: Merged separate raw Raman data file in one single spreadsheet based on the metadata provided by a fieldbook file and the filename of the raw files.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

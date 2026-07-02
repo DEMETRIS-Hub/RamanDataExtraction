@@ -6,9 +6,7 @@
 # License: Apache
 
 
-source("./.../../R/checkConfigFile.R")
-
-library(testthat)
+#source("./.../../R/checkConfigFile.R")
 
 #' util_default_base_list
 #' 
@@ -221,13 +219,13 @@ test_that("Check missing destSubDir ", {
                         factor1="dflt_factor1",
                         factor2="dflt_factor2",
                         destSubDir="./out/")
-
+  
   
   expect_warning(actual_output <- checkNamedParameter(input_list),
                  "Missing optional parameter: destSubDir -> set default: ./out/",
                  fixed=TRUE)
   expect_equal(actual_output, expect_output)
-  })
+})
 
 test_that("Check empty destSubDir ", {
   base_list <- util_default_base_list()
@@ -303,8 +301,8 @@ test_that("Check empty location ", {
   
   
   expect_warning(actual_output <- checkNamedParameter(input_list),
-               "Empty optional parameter: location",
-               fixed=TRUE)
+                 "Empty optional parameter: location",
+                 fixed=TRUE)
   expect_equal(actual_output, expect_output)
   
 })

@@ -1,0 +1,28 @@
+# File setup for the script
+## (Compulsory) directory with the raw data file
+datasetDir: .\..\Sardegna Marzo 2026
+## (Compulsory) spreadsheet with the field metadata
+fieldBookFilename: Summary Raman data Sardegna 2026.xlsx
+## (Default: ./out/) directory for the output
+destSubDir: ./out/
+## (Default: campaign_sumup.xlsx) filename for the output
+outputFilename: campaign_sumup.xlsx
+# Fieldbook column name mapping 
+## (Compulsory) unique identifier 
+id: n° pianta
+## (Compulsory) acquisition date  
+date: Data
+## (Compulsory) acquisition starting time 
+startTime: orario inizio
+## (Compulsory) acquisition ending time 
+endTime: orario fine
+## (Compulsory) spectrum acquired during the time
+spectrumNb: n spettri
+## (Optional) location metadata
+location: Nome sito
+## (Optional) block metadata
+block: 
+## (Optional) factor1 metadata
+factor1:
+## (Optional) factor2 metadata
+factor2: 

@@ -5,19 +5,19 @@
 # Version: 1.0
 # License: Apache
 
-if (!require(hms)) install.packages(hms)
+if (!require(hms)) install.packages('hms',repos = "http://cran.us.r-project.org")
 library(hms) ## for time manipulation
-if (!require(lubridate)) install.packages(lubridate)
-library(lubridate) # date manipulation
-if (!require(stringr)) install.packages(stringr)
+if (!require(stringr)) install.packages('stringr',repos = "http://cran.us.r-project.org")
 library(stringr)## for string operation str_replace_all
-
+if (!require(dplyr)) install.packages('dplyr',repos = "http://cran.us.r-project.org")
+library(dplyr) ## for tibble manipulation
 
 #' extractMetadataFromFileName
 #' 
 #' This function transform the filename into the metadata of the file 
 #' @param filename the filename 
 #' @return dataframe containing the metadata 
+#' @export
 #' 
 extractMetadataFromFileName <- function(filename){
   filename_std = str_replace_all(filename,c(" "="-","\\."="-"))
@@ -48,13 +48,13 @@ extractMetadataFromFileName <- function(filename){
 #' 
 intersectFileWithDate <- function(fieldBookTibble,dataFileTibble){
   out <- fieldBookTibble %>% 
-    mutate(field_day= day(date), 
-           field_month= month(date)) %>%
+    mutate(field_day= as.integer(format(date, "%d")), 
+           field_month= as.integer(format(date, "%m"))) %>%
     left_join(y = dataFileTibble %>% 
-                mutate(file_day=day(date),
-                       file_month= month(date)) %>%
+                mutate(file_day=as.integer(format(date, "%d")),
+                       file_month= as.integer(format(date, "%m"))) %>%
                 select (-date)
-              ,by = join_by(field_day == file_day, field_month == file_month, startTime < time, endTime> time)
+              ,by = join_by(field_day == file_day, field_month == file_month, startTime <= time, endTime> time)
     ) %>% 
     select(-startTime,-endTime,-field_day,-field_month) %>% 
     rename(spectrum_expected=spectrumNb) %>% 
@@ -81,6 +81,7 @@ intersectFileWithDate <- function(fieldBookTibble,dataFileTibble){
 #' @param filepath the filepath of the data file
 #' @param filename the unique identifier for the file 
 #' @return dataframe with the filename and all wavelength as column
+#' @export
 #' 
 loadRamanDataFile <-function(filepath, filename) {
   data <- read.table(filepath, sep = '\t',header = FALSE)

@@ -49,9 +49,7 @@ checkEmptyValue <- function(parameter){
 #' 
 #' @param paramList list of named parameter
 #' @return list corrected with default values if the parameter is missing or empty
-#' @export
-#' @examples
-#' fixedConfigYml <- checkNamedParameter(configYml)
+
 
 checkNamedParameter <- function(paramList){
   if(!hasName(paramList,"datasetDir")){

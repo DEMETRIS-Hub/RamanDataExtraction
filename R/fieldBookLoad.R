@@ -6,11 +6,11 @@
 # License: Apache
 
 
-if (!require(openxlsx)) install.packages(openxlsx)
+if (!require(openxlsx)) install.packages('openxlsx',repos = "http://cran.us.r-project.org")
 library(openxlsx) ## for write.xlsx function
-if (!require(dplyr)) install.packages(dplyr)
+if (!require(dplyr)) install.packages('dplyr',repos = "http://cran.us.r-project.org")
 library(dplyr) ## for tibble manipulation
-if (!require(hms)) install.packages(hms)
+if (!require(hms)) install.packages('hms',repos = "http://cran.us.r-project.org")
 library(hms) ## for time manipulation
 
 #' p_secondInOneDay : global constant representing second in one day
